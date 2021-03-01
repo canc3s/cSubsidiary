@@ -69,4 +69,4 @@ https://www.tianyancha.com/company/25174642	北京字节跳动科技有限公司
 
 软件难免有一些问题，假如大家发现，欢迎大家提意见或者建议。
 
-还有一个工具 `cDomain` 我一般两个一起使用，我后面写个文章，详细写一下
+还有一个工具 `cDomain` 我一般两个一起使用，参考[文章](https://canc3s.github.io/2021/03/01/cSubsidiary和cDomain使用指南/)
