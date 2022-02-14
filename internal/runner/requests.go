@@ -86,7 +86,7 @@ func GetPage(url string, options *Options) Response {
 }
 
 func GetInformation(resp Response, options *Options) []Subsidiary {
-	list := htmlquery.Find(resp.Page, "/html/body//div[7]/div[2]/div/table/tbody/tr")
+	list := htmlquery.Find(resp.Page, "//*[@id=\"_container_invest\"]/div/table/tbody/tr")
 
 	subsidiaries := filter(list, options)
 	return subsidiaries
@@ -115,7 +115,7 @@ func filter(list []*html.Node, options *Options) (subsidiaries []Subsidiary) {
 			Url:     htmlquery.SelectAttr(nodeA, "href"),
 			Funds:   re.FindStringSubmatch(funds)[0],
 			Percent: htmlquery.InnerText(nodes[9]),
-			Status:  state == "在业" || state == "存续",
+			Status:  state == "存续（在营、开业、在册）",
 		}
 
 		percent1, _ := strconv.ParseFloat(subsidiary.Percent[:len(subsidiary.Percent)-1], 64)
