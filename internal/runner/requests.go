@@ -115,7 +115,7 @@ func filter(list []*html.Node, options *Options) (subsidiaries []Subsidiary) {
 			Url:     htmlquery.SelectAttr(nodeA, "href"),
 			Funds:   re.FindStringSubmatch(funds)[0],
 			Percent: htmlquery.InnerText(nodes[9]),
-			Status:  state == "存续（在营、开业、在册）",
+			Status:  state != "注销",
 		}
 
 		percent1, _ := strconv.ParseFloat(subsidiary.Percent[:len(subsidiary.Percent)-1], 64)
