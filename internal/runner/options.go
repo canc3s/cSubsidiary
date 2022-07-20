@@ -17,7 +17,7 @@ const banner = `
 											v`
 
 // Version is the current version of C
-const Version = `0.0.4`
+const Version = `0.0.6`
 
 
 type Options struct {

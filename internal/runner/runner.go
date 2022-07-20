@@ -6,7 +6,6 @@ import (
 	"github.com/canc3s/cSubsidiary/internal/gologger"
 	"os"
 	"regexp"
-	"strconv"
 )
 
 type Targets struct {
@@ -47,23 +46,7 @@ func RunEnumeration(options *Options) {
 func SubsidiariesById(options *Options) {
 	var subsidiaries []Subsidiary
 	gologger.Infof("正在查询 https://www.tianyancha.com/company/%s 的子公司\n", options.CompanyID)
-	if options.Cookie != "" {
-		resp := GetPage("https://www.tianyancha.com/pagination/invest.xhtml?ps=30&pn=1&id="+options.CompanyID, options)
-		page := JudgePagesI(resp.Page)
-		subsidiaries = GetInformationWithCookie(resp.Page, options)
-		//fmt.Println(page)
-		for i := 2; i <= page; i++ {
-			resp := GetPage("https://www.tianyancha.com/pagination/invest.xhtml?ps=30&pn="+strconv.Itoa(i)+"&id="+options.CompanyID, options)
-			subsidiaries = append(subsidiaries,GetInformationWithCookie(resp.Page, options)...)
-		}
-	} else {
-		resp := GetPage("https://www.tianyancha.com/company/"+options.CompanyID, options)
-		subsidiaries = GetInformation(resp, options)
-		num := JudgePages(resp.Page)
-		if num != 0 {
-			gologger.Warningf("页数大于1，结果不准确，需要加Cookie\n")
-		}
-	}
+	subsidiaries = ListInvest(options)
 
 	for _,subsidiary := range subsidiaries {
 		fmt.Printf("%s\t%s\n", subsidiary.Url, subsidiary.Name)
